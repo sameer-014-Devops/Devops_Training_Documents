@@ -1,6 +1,17 @@
+  #Ports for master node
+TCP - 6443, 2379-2380, 10250, 10259, 10257
+
+  #Ports for works node
+TCP - 10250, 10256, 30000-32767
+
   # Set hostname for Kubernetes master node
     
-sudo hostnamectl set-hostname "kmaster-node"
+sudo hostnamectl set-hostname "kube-master"
+exec bash  # Restart the shell to apply the hostname change
+
+  # Set hostname for Kubernetes master node
+    
+sudo hostnamectl set-hostname "kube-worker-node01"
 exec bash  # Restart the shell to apply the hostname change
 
   # Disable swap and update fstab
