@@ -171,9 +171,9 @@ sudo kubeadm config images pull
 
 #Initialize the cluster
 
-#sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
-sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=NumCPU --ignore-preflight-errors=Mem
+#sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=NumCPU --ignore-preflight-errors=Mem
 
 #The initialization may take a few moments to finish. Expect an output similar to the following:
 
@@ -187,10 +187,8 @@ sudo kubeadm init --pod-network-cidr=10.244.0.0/16 --ignore-preflight-errors=Num
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
+export KUBECONFIG=/etc/kubernetes/admin.conf
 
-#Alternatively, if you are the root user, you can run:
-
-#export KUBECONFIG=/etc/kubernetes/admin.conf
 
 #You should now deploy a pod network to the cluster. Run kubectl apply -f [podnetwork].yaml with one of the options listed at Kubernetes.
 
