@@ -255,3 +255,190 @@ Day 21 : 9th Jan. 2025
 	Following Commands to be executed in all Worker Nodes
 
 		8. kubeadm join 									# To Attach Worker Nodes to Master Node.
+
+
+
+	
+	Working with Kubernetes Pods :::
+	
+	
+	- Manifest File. 	--> defines the properties of the kubenetes pods and other objects. 
+							*.yaml / *.json. 
+	
+	- kubectl 
+	
+	
+	--> Namespace ::
+	
+	
+--> Install and Configure Kubernetes Master & Worknodes 
+
+--> Deploy a pod 
+
+--> Login to Pod 
+
+--> Create NodePort Services 
+
+--> Access the Applications running inside the pode using web browser.
+
+
+########################
+Day 22 : 15th Jan. 2025
+########################
+
+	- Kubernetes Deployment Object 
+	
+	- Overview of Kubernetes Services 
+		- NodePort Service 
+		
+	- Kubernetes Volumes 
+		- Hostpath Volume 
+	
+	- Namespaces 
+	
+	
+	- Kubernetes Deployment Object :::
+		
+		Kubernetes Master 				1 Master Node.
+		
+			Kubernetes_WorkNode1
+			Kubernetes_WorkNode2
+			
+		How to deploy a pod :
+		
+			- Deployed 1 instance of pod to WorkerNode2 
+			
+		
+		
+		Kubernetes Deployment Controller Object :::
+		
+			- Create Replicas of Pods and deploy the pod instances to the WorkerNodes
+			- Here, the Replicas are created using Replicaset 				
+			- Used to Deploy the Replicas of Pods in the available WorkerNodes 
+			- Perform Scale-Up and Scale-Down the Pod Instances 
+			- Perform Upgrade and Downgrade the Pod Versions without any downtime. 
+			- Deployment Strategy called - Rolling Update Strategy to ensure Zero DownTime during Upgrade/Downgrade.
+			
+			-> Creates : 1. Deployment Controller 
+						 2. Replicaset
+						 3. Pod Instances 
+		
+		What is Deployment of Application Service ???
+		
+			--> nginx:latest 
+		
+		What is Upgrade / Downgrade ???
+					
+			mywebapp-img:v1.1			-> LIVE 		
+			
+			mywebapp-img:v1.2			-> Upgraded to v1.2 
+			
+			
+		Replicas/Copies of Pods ::::	
+		
+			mywebapp-img:v1.1			--> pod1	--> Deployed in WorkerNode2.
+			
+		Replicaset Controller Object :
+		
+			- Used to Create Replicas/Copies of pods 
+			- Replicaset Created Automatically during the Deployment Object Creation
+			
+			- replicas : 3 
+		
+			mywebapp-img:v1.1			--> Creates 3 replicas of pods : pod1, pod2, pod3 
+										--> Deploy the 3 replicas of pods in available WorkerNodes.
+										
+										
+			Web Applications :
+			
+				- E-Commerce Apps - www.amazon.com
+				
+				- On-Line Ticket Booking System
+										
+			
+			Production Server1			===> 1000 Users ==> 5000 Users
+			
+			Production Server1,2,3,4,5  ===> 5000 Users 
+			
+			Kubernetes Environments ::
+			
+				Kubernetes_Master
+				
+					Kubernetes_WorkNode1,2,3,4,5 (LIVE Servers)
+					
+					15 instance of pod ?
+					
+			Deployment Controller Object :::
+			
+				mywebapp-img:v1.1 ::: 					replicas : 3 
+					
+					pod1	- mywebapp-img:v1.1
+					
+					pod2	- mywebapp-img:v1.1
+					
+					pod3	- mywebapp-img:v1.1
+		
+		
+				mywebapp-img:v1.2 :::					
+			
+					pod1	- mywebapp-img:v1.2
+					
+					pod2	- mywebapp-img:v1.2
+					
+					pod3	- mywebapp-img:v1.2				
+				
+			-	Deployment Strategy - Rolling Update Strategy  # To ensure Zero DownTime during Upgrade/Downgrade.
+			
+				mywebapp-img:v1.2 :::					replicas : 3 
+
+					pod1	- mywebapp-img:v1.2
+
+					pod2	- mywebapp-img:v1.2
+					
+					pod3	- mywebapp-img:v1.2
+					
+
+		Environments :
+		
+			Non-Prod Environments 							Prod Environment ( LIVE )
+				
+				DEV 
+				BUILD 
+				Test 
+					QA 
+					UAT 				===========>			Production Server1,2,3,4,5
+											*.war 
+										
+		
+			Kubernetes Architecture :::							Kubernetes Architecture :::
+	                                                            
+				Non-Prod Kubernetes Master                            Prod Kubernetes Master 
+		                                                        
+					Non-Prod Kubernetes Worker_Node1,2,3,4,5	      	Prod Kubernetes Worker_Node1,2,3,4,5
+	
+	
+	
+		Kubernetes_Master
+			Kubernetes_WorkNode1		--> pod1
+			Kubernetes_WorkNode2		--> pod2
+			
+			
+			
+	Kubernetes services :
+	
+		- NodePort Service :::
+		
+				--> Used to Expose the pod to Internet 
+				
+				--> It is a special type of service, which can assign addition port ranges from 30000 to 32767.
+				
+				--> Map the deployment object to NodePort Service, it will be applicable to all corresponding pods.
+				
+				--> Access it thru. 
+				
+						# Open Web-browser and access webapge using 
+							http://<external-nodeip>:<nodeport>
+
+							#eg.: http://15.207.116.47:32487
+		
+			
