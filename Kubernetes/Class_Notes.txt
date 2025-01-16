@@ -441,4 +441,223 @@ Day 22 : 15th Jan. 2025
 
 							#eg.: http://15.207.116.47:32487
 		
+
+
+########################
+Day 23 : 16th Jan. 2025
+########################
+
+
+	- Services in Kubernetes :::
+	
+		--> Used to Access the Kubernetes Pods
+
+		Services are used to enable the communication to the pods :::
+		
+		
+		- Cluster-IP Service:
+			- It is used to enable the communication between the pods within the cluster 
+		
+		- Node-Port Service 
+			- It is used to expose the pods to internet
+			- Uses the port range : 30000 to 32767 
+			- Created for each micro-service / Application-Layer
+		
+		- Load Balancer Service
+
+			- Is used to reduce the number of IPs address to be maintained for NodePort Service.
 			
+			- Load Balancer Service Created on top of the NodePort Service, will receives the request from end user thru internet and Route the request the corresponding nodeport service and access the pod within that.	
+
+			- Load Balancer Service will be created at the Application Level.			
+	
+	
+		- Ingress Controller Service :::
+		
+			- Is used to reduce the Load-Balancer Service and map the services to Load-Balancer
+			
+			- Ingress Rules 
+			
+
+		www.google.com 			- Web Application		--> DNS --> IP-Address  -- Load Balancer IP Address
+		
+		
+		Host Based Routing :::
+		
+			www.gmail.google.com 			
+			www.translate.google.com 			
+			www.maps.google.com 
+			
+		
+		Path Based Routing :::		
+		
+			www.gmail.com/inbox 
+			www.gmail.com/sent 
+			www.gmail.com/trash 
+			
+	
+
+	- Create NodePort Service for Deployment Object ::::
+
+		
+		3-tier application :
+		
+			- Front-End	Layer				# User Interface 			
+			
+			- Application-Layer 			# To Create Business Logics 
+			
+			- Back-End Data-Base Layer		# To Manage Database 
+	
+		
+		Using Docker Containers :
+		
+			Micro-Service1 - User_Sign_in Service  -  prod
+			
+				- Front-End	 			C1.1,C1.2,C1.3 
+				
+				- Application Layer 	C2.1,C2.2,C2.3 
+				
+				- DataBase Layer 		C3.1,C3.2,C3.3  	
+				
+	
+		Using Kubernetes Pods :
+	
+			Micro-Service1 - User_Sign_in Service  -  prod
+			
+			# Without Pod Replicas :::
+
+				- Front-End	 			pods-1.1
+				
+				- Application Layer 	pods-2.1
+				
+				- DataBase Layer 		pods-3.1
+				
+				
+			# With Pod Replicas :::
+			
+				- Front-End	 			pods-1.1,1.2,1.3 
+				
+				- Application Layer 	pods-2.1,2.2,2.3 
+				
+				- DataBase Layer 		pods-3.1,3.2,3.3 
+	
+	
+	
+# myappsvcdeploy.yaml
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loksai-eta-deploy
+  labels:
+    app: loksai-eta-deploy-lbl
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: loksai-eta-app
+  template:
+    metadata:
+      labels:
+        app: loksai-eta-app
+    spec:
+      containers:
+      - name: loksai-eta-container
+        image: loksaieta/sa-mywabappsvc-img:v1.0
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loksai-eta-np-service
+  labels:
+    app: loksai-eta-np-app
+spec:
+  selector:
+    app: loksai-eta-deploy-lbl
+
+  type: NodePort
+  ports:
+  - nodePort: 31028
+    port: 8080
+    targetPort: 8080
+	
+	
+	Output ::
+	
+		- deployment object 
+		- replicaset 
+		- pod instances
+		- NodePort Service 
+	
+	
+	- Kubernetes Host Path Volume :::
+	
+		Maintain Persistant Data :::
+		
+			- Hostpath Volume is created at the pods level. Not at the Container level.
+		
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-hostpath
+spec:
+  containers:
+    - name: nginx-container
+      image: nginx
+      volumeMounts:
+      - mountPath: /test-mnt
+        name: test-vol
+  volumes:
+  - name: test-vol
+    hostPath:
+      path: /test-vol		
+		
+	
+	
+	====> Namespaces ::::
+	
+			- Logical Partition of the Kubernetes Cluster.
+			- This will create an isolated path for deployments
+			- Namespaces can be created based on the Environments/Teams 
+			
+			
+		Kubernetes Architecture :::							Kubernetes Architecture :::
+															
+			Non-Prod Kubernetes Master                            Prod Kubernetes Master 
+															
+				Non-Prod Kubernetes Worker_Node1,2,3,4,5	      	Prod Kubernetes Worker_Node1,2,3,4,5
+
+
+		Windows File System :
+		
+			C:/ 	
+
+				- Folder1 
+					file1
+					file2 
+
+				- Folder2 
+					file1
+					file2 
+
+	How to Automate Application Build and Deploymen to Kubernetes Cluster using Jnekins ::::
+	
+	--> Related to Project.
+	
+	
+Next Modules :::
+
+	Configuration Automation using Ansible
+	
+	Terraform Overview
+		
+	Continuous Monitoring using Prometheus and Grafana
+	
+	Overview of Devops Services on Cloud - AWS/Azure
+
+	Project Demo :::
+	
+	
+	
