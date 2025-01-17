@@ -660,4 +660,212 @@ Next Modules :::
 	Project Demo :::
 	
 	
+
+########################
+Day 24 : 17th Jan. 2025
+########################
+
+
+	Integrate Docker and Kubernetes as part of CICD Pipeline.
+
+pipeline {
+    agent { label 'slave1' }
+
+    stages {
+        stage('SCM_Checkout') {
+            steps {
+               echo "Perform SCM Checkout"
+			   git 'https://github.com/SA-Team-DevOps-03-Dec-24/java-mvn-springbootapp.git'			   
+            }
+        }
+        stage('Application Build') {
+            steps {
+                echo "Perform Application Build"
+				sh 'mvn clean package'
+            }
+        }
+        stage('Deploy to Test Server') {
+            steps {
+                script{
+                   sshPublisher(publishers: [sshPublisherDesc(configName: 'Tomcat-Server', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: '', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: 'target/', sourceFiles: 'target/*.war')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                }
+            }
+        }
+    }
+}	
+
+
+	- To Automate Application Build and Deployment to Kubernetes Cluster using Jenkins ::::
+
+
+	Application Micro-Service --->
 	
+		- Create CICD Pipeline to Automate this Application Micro-Service using Jenkins.
+
+
+	DevOps Lead :
+	
+		- DevOps Infra-Structure Readiness 
+		
+			- Servers :::			
+			
+					Jenkins_Master 				# To Create CICD Projects and schedule to run in the slave Nodes. 
+					
+						Jenkins_SlaveNode1		# Application Build --> Create Artifacts 
+						(Build Server)			# Application Image Build --> Create Docker Image 
+												# Login to DockerHub 
+												# Push the Image to DockerHub 
+											
+					Kubernetes_Master 			# Deploy the Application Pods
+						Kubernetes_WorkNode1
+						Kubernetes_WorkNode2
+											
+		
+			- Tools in each Server :::
+
+					Jenkins_Master 				# git,jdk,jenkins 
+					
+						Jenkins_SlaveNode1		# git, jdk, maven 
+						(Build Server)			# Docker 
+								
+					Kubernetes_Master 			# 
+						Kubernetes_WorkNode1
+						Kubernetes_WorkNode2
+				
+				
+	Implementation :::
+		
+		Create and Configure :
+		
+			Jenkins_Master 				# git,jdk,jenkins 				
+				Jenkins_SlaveNode1		# git, jdk, maven 
+				(Build Server)			# Docker 
+						
+			Kubernetes_Master 			# 
+				Kubernetes_WorkNode1
+				Kubernetes_WorkNode2			
+
+
+		Integration of Servers :::				
+
+			Jenkins_Master 					
+				Jenkins_SlaveNode1				
+					(Build Server)						
+										 
+			Kubernetes_Master 						
+				Kubernetes_WorkNode1		
+				Kubernetes_WorkNode2	
+
+
+			### Integrate Jenkins Slave_Node with Jenkins Master Node using SSH 
+			
+			### Integrate Kubernetes Master_Node with Jenkins Master Node using SSH - SSH Publisher Plugins
+			
+				- Using Jenkins Master - Copy the manifest file from jenkins slave node to Kubernetes Master_Node.
+				- Jenkins Master acts as an interface between Jenkins_Slave_Node and Kubernetes Master_Node
+				
+	
+				
+		Create CICD Pipeline :
+
+			Access the DockerHub :
+			
+					--> DockerHub Login ID 			dfghfgieta
+					--> Access Token 				dfgo
+					
+				-> Create a Jenkins Credential for DockerHub Access using Dockerhub Login_ID and Access Token
+
+
+		
+			Input 	:::		github Repo URL 
+								--> Application Source Code 
+								--> pom.xml 
+								--> Dockerfile 
+								--> Kubernetes_manifest_file
+							
+							
+			Output 	::: 	Pods Deployed to Kubernetes Cluster 
+								--> *.war 
+								--> Application image published to DockerHub 
+								--> Application Pods 
+								
+								
+
+
+		CICD Pipeline :::
+		
+			Stages :
+			
+				1. SCM-Checkout 
+				
+				2. Application Build 			# Create Application Artifacts
+				
+				3. Application Image Build 		# Create Docker Image based on the Application Artifacts using Dockerfile
+				 
+				4. Login to DockerHub 
+				
+				5. Push the Application Image to DockerHub Repository 
+				
+				6. Deploy to Kubernetes Cluster 			
+	
+	
+pipeline {
+    agent { label 'slave1' }
+
+	environment {	
+		DOCKERHUB_CREDENTIALS=credentials('sadockerlogin')
+	}
+	
+    stages {
+        stage('SCM_Checkout') {
+            steps {
+               echo "Perform SCM Checkout"
+			   git 'https://github.com/SA-Team-DevOps-03-Dec-24/java-mvn-springbootapp.git'			   
+            }
+        }
+        stage('Application Build') {
+            steps {
+                echo "Perform Application Build"
+				sh 'mvn clean package'
+            }
+        }
+        stage('Build Docker Image') {
+            steps {
+				sh 'docker version'
+				sh "docker build -t loksaieta/sa-mywebapp:${BUILD_NUMBER} ."
+				sh 'docker image list'
+				sh "docker tag loksaieta/sa-mywebapp:${BUILD_NUMBER} loksaieta/sa-mywebapp:latest"
+            }
+        }
+		stage('Login2DockerHub') {
+
+			steps {
+				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+			}
+		}
+		stage('Publish_to_Docker_Registry') {
+			steps {
+				sh "docker push loksaieta/sa-mywebapp:latest"
+			}
+		}
+        stage('Deploy to Kubernetes Cluster') {
+            steps {
+                script{
+                   sshPublisher(publishers: [sshPublisherDesc(configName: 'SA-Jan09-KMaster', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'kubectl apply -f kubedeploy.yaml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*.yaml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+                }
+            }
+        }
+    }
+}
+
+		kubectl create -f kubedeploy.yaml			# Create New Object. No duplication is allowed.
+	  
+		kubectl apply -f kubedeploy.yaml			# Create or replace the Kubernetes Object.
+	
+		
+
+Next :
+
+	Ansible - Configuration Management Tool 
+	
+		
