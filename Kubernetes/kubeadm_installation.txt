@@ -60,7 +60,8 @@ sudo apt install -y containerd.io
     
 sudo mkdir -p /etc/containerd
 sudo containerd config default | sudo tee /etc/containerd/config.toml
-sudo vi /etc/containerd/config.toml #SystemdCgroup = true
+sudo vi /etc/containerd/config.toml 
+          #SystemdCgroup = true
 
   # Restart and check containerd status
 
