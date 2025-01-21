@@ -1,0 +1,148 @@
+	
+########################
+Day 25 : 21st Jan. 2025
+########################
+
+
+	Ansible - Configuration Management Tool :::
+
+	Configuration Management Tool ::::
+	
+	DevOps :::
+
+
+		- Infra-Structure Management :
+		
+			- Create the IT Resources
+				
+				Test Environment
+				Prod Environments
+			
+			- Configure IT Resources 
+		
+				Test Environment
+				Prod Environments
+		
+		Application Testing :
+		
+			20 VMs :
+			
+			Install & Configure all these 20 VMs
+		
+		IAC Tools :::
+		
+			- Infra-Structure As Code:
+			
+				- Based on Declarative Scripts --> *.json,*.yaml,*.hcl
+				- Based on Key:Value pairs
+				
+			- Terraform		# Provisioning/creation of IT Resources 
+			
+				Terraform/Cloudformation/ARM
+			
+			- Ansible 		# Configuration Management of IT Resources 
+				
+				Ansible/Chef/Puppet
+				
+	
+		Ansible :::
+		
+		-> Why we need Ansible?
+		
+		-> Features of Ansible 
+		
+		-> Ansible Architecture ::
+		
+			-- Master & Clients 
+			
+				- Ansible Controller 
+					- Ansible Nodes 
+		
+				
+		
+		-> Ansible Architecture Components
+					
+			- Ansible Controller 
+				- Install Ansible 
+				- Maintain the Ansible Modules and Inventory file 
+				
+			- Ansible Nodes :
+				- Target Machines/Clients that can be configured through Ansible Controller 
+				
+			- Inventory file :
+				- Used to define the Ansible Nodes details
+				- Host Name, User Name and Credentials - SSH Keys / Password 
+				
+			- Ansible Modules :
+				- It is a script or function that gets injected into the target machine.
+				- These Modules are based of Python Scripts 
+				- Ansible Inject/push the modules from the Ansible Controller Machine into the Ansible Nodes, perform the desired Task, and Once the - Task is over, it will delete that module from that target machine. 		
+				
+				Ansible_Controller 							Ansible_Node1 
+				
+					setup_Java_BuildServer.sh		======>	Copy setup_Java_BuildServer.sh and Execute this script in Ansible Node1
+						apt install git 
+						apt install jdk
+						apt install maven						
+							
+				- Ansible Use the Push Mechanism 
+				
+				- Ansible is Agentless.				
+				
+			- Ansible Config File :
+			
+				- Is used to define the default properties of Ansible 		
+		
+		
+		-> How to work with Ansible ?
+		
+			- Ansible Adhoc Commands :
+			
+				- It is used to execute a module in the target machine.
+				
+					Eg.: 
+					
+					Target Server :
+					
+						install git :
+							- apt install git -y				
+			
+			- Ansible Playbooks :
+			
+				- Used to execute the series of task/Modules in the target machine.
+				- Ansible Playbooks should be reusable 
+				- Ansible Playbooks are written using *.yaml Scripts 
+				
+					Eg.: 
+						Target Server : 
+						
+							Setup the Jenkins Slave_Node :
+							
+								- apt install git -y 
+								- apt install jdk -y 
+								- apt install maven -y 
+								- apt install docker.io -y 
+
+			
+		-> Working with Inventory Files :::
+
+			- Inventory file :
+				- Used to define the Ansible Nodes details
+				- Host Name, User Name and Credentials - SSH Keys / Password 
+				
+			
+				
+
+		-> Install and Configure Ansible Architecture :::
+		
+				https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html
+				https://docs.ansible.com/ansible/latest/installation_guide/installation_distros.html#installing-ansible-on-ubuntu
+
+
+				Ansible Controller (VM)
+					- Ansible Node1 (VM)
+					- Ansible Node2 (VM)
+			
+			
+		-> Ansible Concepts
+			- Handlers/Loops/Roles
