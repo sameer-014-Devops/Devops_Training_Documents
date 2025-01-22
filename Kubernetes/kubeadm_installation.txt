@@ -107,6 +107,12 @@ export KUBECONFIG=/etc/kubernetes/admin.conf
   #Deploy a pod network to our cluster. This is required to interconnect the different Kubernetes components.
 
 kubectl apply -f https://github.com/coreos/flannel/raw/master/Documentation/kube-flannel.yml
+
+  #Error from server (Forbidden): pods is forbidden: User "kubernetes-admin" cannot list resource "pods" in API group "" at the cluster scope
+#kubectl create clusterrolebinding kubernetes-admin-binding \
+  --clusterrole=cluster-admin \
+  --user=kubernetes-admin
+
   
   # To generate New Token along with Kubeadm Join Command.
 
