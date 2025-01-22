@@ -146,3 +146,32 @@ Day 25 : 21st Jan. 2025
 			
 		-> Ansible Concepts
 			- Handlers/Loops/Roles
+
+
+			
+########################
+Day 25 : 21st Jan. 2025
+########################
+
+	Ansible Adhoc Commands 
+	
+	Ansible Playbooks :
+	
+		Ansible Uses Push Mechanism :
+		
+		
+		
+		Variables :::
+			
+			Ansible Facts (Environment Varibles)
+			
+			User Defined Variables 
+			
+Next :
+
+		-> Ansible Concepts
+			- Handlers/Loops/Roles
+
+			
+			
+
