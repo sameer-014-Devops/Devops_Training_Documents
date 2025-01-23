@@ -147,10 +147,9 @@ Day 25 : 21st Jan. 2025
 		-> Ansible Concepts
 			- Handlers/Loops/Roles
 
-
-			
+		
 ########################
-Day 25 : 21st Jan. 2025
+Day 26 : 22nd Jan. 2025
 ########################
 
 	Ansible Adhoc Commands 
@@ -166,12 +165,46 @@ Day 25 : 21st Jan. 2025
 			Ansible Facts (Environment Varibles)
 			
 			User Defined Variables 
-			
-Next :
+		
+		
+########################
+Day 27 : 23rd Jan. 2025
+########################	
 
-		-> Ansible Concepts
-			- Handlers/Loops/Roles
+	Ansible Register 	# Register the output of a module to a variable.
+	
+	Handlers 
+	
+	Loops 
+	
+	Ansible Roles
+	
+	
+	
+########################
+Day 27 : 23rd Jan. 2025
+########################	
+	
+	Fundamentals of Terraform :::
+	
+		- Overview of Terraform
 
+				- IAC Tool used to Provision/Create the IT Infra-Structure resources like VMs
+				- It uses HCL Language --
+					- HashiCorp Declarative Language (based on json file format)
+					
+					
+					
+					
+		IAC Tool ::::
+		
+			Types :
 			
+				
 			
+
+
+
+
+
 

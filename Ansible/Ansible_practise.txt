@@ -298,3 +298,174 @@ Using When Condition :::
           state: "{{pkg_state}}"
         when: ansible_os_family == "RedHat"
 
+
+
+
+
+Loops :
+
+---
+  - hosts: samplenode1
+    become: yes
+    tasks:
+      - apt:
+         name: git
+         state: present
+      - apt:
+         name: maven
+         state: present
+      - apt:
+         name: nginx
+         state: present
+
+
+		
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~ register and set-facts
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#test_var-datatype.yaml
+---
+ - hosts: samplenode1
+   gather_facts: false
+   tasks:
+   - shell: "bash --version"
+
+
+#test_var-datatype.yaml
+---
+ - hosts: samplenode1
+   tasks:
+   - shell: "bash --version"
+     register: bash_ver
+   - debug: var=bash_ver
+
+
+
+Loops :::
+
+---
+  - hosts: samplenode1
+    gather_facts: false
+    become: yes
+    tasks:
+      - apt:
+         name: "{{item}}"
+         state: absent
+        loop:
+          - git_2.81.0
+          - maven
+          - nginx
+
+
+
+		  
+Handlers --> are used to control the flow of playbook execution, based on the previous modules
+		This can be done thru notify key.
+
+		Handlers are same as tasks.
+		But, it gets executed only if we notify.
+
+
+
+Handlers :::
+
+	Handlers are used to control the flow of execution of tasks.
+	
+	Tasks 1 :::
+	
+	QA_Server 
+	
+		Tomcat :::
+				
+			1. Install the Pre-requisites		# jdk 			# jdk 
+			2. Install the actual tool 			# tomcat 		# jenkins 
+			3. Configure/setup the tool			# start tomcat  # unlock jenkins and setup
+
+
+	
+---
+  - hosts: samplenode1
+    #gather_facts: false
+    become: yes
+    tasks:
+      - name: Install-nginx
+        apt:
+          name: nginx
+          state: present
+        notify:
+        - start-nginx
+    handlers:
+    - name: start-nginx
+      service:
+          name: nginx
+          state: started
+
+
+
+
+	apt/yum --> state : present/absent/latest 
+
+	service --> state : started/stopped/restarted
+		  
+Ansible Roles ::::
+	
+
+
+	
+		  
+Ansible Roles :::
+
+		Are used to organize the Ansible Components 
+		
+		for Reusability
+		
+		Use git remote repositories to maintain the Ansible Roles.
+		
+			variable/handlers/defaults/secrets/tasks
+			
+			Playbooks 
+			
+			
+		Roles can be created using :::
+		
+			- ansible-galaxy init testrole1 
+				Roles can be defined at enterprise level / global level.
+				
+		
+Working with Handlers using Ansible Roles :::
+
+
+ansible-galaxy init testrole1
+---
+# tasks file for testrole1
+      - name: Install-nginx
+        apt:
+          name: nginx
+          state: present
+        notify:
+        - start-nginx
+
+
+---
+# handlers file for testrole1
+    - name: start-nginx
+      service:
+          name: nginx
+          state: started
+
+
+---
+- hosts: samplenode1
+  become: yes
+  roles:
+    - role: testrole1
+    - role: testrole
+
+---
+- hosts: {{host_name}}
+  become: yes
+  roles:
+    - role: {{role_name}}	
+			
+			
