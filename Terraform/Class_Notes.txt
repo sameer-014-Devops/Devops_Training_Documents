@@ -1,0 +1,189 @@
+
+########################
+Day 29 : 28th Jan. 2025
+########################
+
+	Fundamentals of Terraform :::
+	
+	Prometheus & Grafana :::
+
+	Capstone Project discussion :::
+	
+	
+	Fundamentals of Terraform ::: 
+	
+	
+		
+	IAC Tools :::
+
+		- Infra-Structure As Code:
+		
+			- Based on Declarative Scripts --> *.json,*.yaml,*.hcl
+			- Based on Key:Value pairs
+			
+		- Terraform		# Provisioning/creation of IT Resources 
+		
+			Terraform/Cloudformation/ARM
+		
+		- Ansible 		# Configuration Management of IT Resources 
+			
+			Ansible/Chef/Puppet
+	
+
+
+	- Overview of Terraform
+
+			- IAC Tool used to Provision/Create the IT Infra-Structure resources like VMs
+			- It uses HCL Language --
+				- HashiCorp Declarative Language (based on json file format)
+					
+				
+			
+
+	- Terraform Architecture :
+	
+	- Terraform Working Model :
+	
+		--> Identify the Scope 			# Identify the Target Platform (AWS/Azure/GCP)
+		
+		--> Write Terraform Script 		# Create Resource definition 
+		
+		--> Perform Terraform Init		# Initialize Terraform Provider to the Terraform Project 
+										# It is to download the Terraform Provider to the Terraform Project 
+		
+		--> Perform Terraform Plan		# Preview the Script and resource definition
+		
+		--> Perform Terraform Apply		# To Apply the changes in the actual Infra-Structure
+		
+	
+	- Terraform Registry / Providers 
+
+			https://registry.terraform.io/
+
+	
+	- Installation and configuration of Terraform 
+	
+			https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+		
+		Infra-Structure Mgmt Team :
+		
+			-> Local Machine (Laptop)
+			
+				-> Using Package Manager 
+						https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+				
+				-> Using Manual Installation				
+						https://developer.hashicorp.com/terraform/install
+
+
+				Using Manual Approach - Install Terraform on local windows machine 
+				
+					- Download Windows AMD64 Version Terraform -- zipfile 
+						- Right Click and Extract all 
+							- Get the Extracted Terraform Folder 
+								- Get the terraform - binary file 
+								
+								C:\Softwares\terraform_1.7.2_windows_amd64
+								
+					- Setup Environment Variable for terraform binary file 
+						- from windows start menu, search for enviroment variable 
+							- click of edit enviroment variable setting 
+								- find system properties dialog 
+									- select enviroment variables button
+										- On Environment Variables Dialog 
+											- goto to System Variable 
+												- Select path variable and edit 
+													- Click on New 
+														- add C:\Softwares\terraform_1.7.2_windows_amd64
+															- apply the changes and close the settings
+				
+				
+				
+				
+		- Install Visual Studio Code 	- IDE used to create Terraform Projects 
+			
+				https://code.visualstudio.com/download
+				
+		
+		- Open Visual Studio Code - Create Terraform Project 
+
+
+		- Open Visual Studio Code - Create Terraform Project 
+		
+			On Visual Studio Code : Install Terraform Extension for Visual Studio Code 
+	
+				HashiCorp Terraform
+	
+	- Working with Terraform
+	
+	
+		Using Terraform  we can :
+		
+		
+			1. Create/Add Resources 		+
+			
+			2. Update/Modify Resources 		~
+			
+			3. Delete/Destroy Resources 	-
+			
+			
+		Create a Project in Visual Studio Code :::
+		
+			- Open a Folder 
+			
+			- Goto Terminal Menu and Open Terminal 
+			
+			-	$ terraform --version
+
+provider "aws" {
+  region     = "ap-south-1"
+  access_key = "AsadfXWY"
+  secret_key = "LasdfaasdfT"
+}
+
+# Create AWS Instance
+
+resource "aws_instance" "instance1" {
+  
+  ami           = "ami-0dee22c13ea7a9a67"
+  instance_type = "t2.micro"
+  key_name      = "may20-keypair"
+
+  tags = {
+    Name = "TestInstance1"
+  }
+}
+
+
+		
+	- Terraform Working Model :
+	
+		--> Identify the Scope 			# Identify the Target Platform (AWS/Azure/GCP)
+		
+		--> Write Terraform Script 		# Create Resource definition 
+		
+		--> Perform Terraform Init		# Initialize Terraform Provider to the Terraform Project 
+										# It is to download the Terraform Provider to the Terraform Project 
+		
+		--> Perform Terraform Plan		# Preview the Script and resource definition
+		
+		--> Perform Terraform Apply		# To Apply the changes in the actual Infra-Structure
+
+
+
+		
+Next :
+		
+		Terraform State File ::::
+		
+		Create Terraform Project with New VPC and associated resources 
+		
+		Best Practices to be followed while using Terraform
+		
+		Real time scenarios 
+		
+		Use Terraform in DevOps Pipeline 
+
+		
+
+		
