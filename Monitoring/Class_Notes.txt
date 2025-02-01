@@ -1,0 +1,72 @@
+		
+########################
+Day 31 : 30th Jan. 2025
+########################
+
+	- Continuous Monitoring :
+	
+		- To Achieve High Availbitlity of application running in the Production Environment
+	
+		- Is completely owned by the Production Support/Monitoring Team 
+		
+		--> 10000 users are accessing the app.
+		
+		--> 50000 user ??
+		
+		--> Infra-Structure Monitoring 
+		
+			- Monitor the Infra-Structure using Monitoring Tools 
+			
+				CPU/Memory/Network Traffic 					
+					--> 80% 
+			
+			Tools :				
+				Prometheus/Grafana/Splunk/DynaTrace
+				Jenkins 					
+		
+		-> Application Monitoring 
+		
+			- 1 service can give a call to another 
+			- Service call to DataBase 
+			
+			Tool :
+				AppDynamics / DataDog
+				Jenkins		
+	
+		==> Prometheus/Grafana ::
+		
+			- Prometheus is a Monitoring Tool 
+			
+			- Grafana is Visualization Tool 
+			
+		==> Architecture of Prometheus Monitoring Tool :::
+		
+		==> Components of Prometheus Architecture
+			
+			- Monitoring Server (Prometheus Server)
+			- Node Exporter (Agent - should be installed in the Target Machines)
+			- TimeSeries Database 
+			
+			- PromQL 	--> Prometheus Query Language using to retrieve the data from TimeSeries Database
+			
+			- Grafana - Dashboard Creations based on the Monitoring Metrix 
+
+
+		==> Install and Configure Prometheus and Grafana :::::
+		
+		==> Setup the Target Server for Monitoring 
+		
+		==> Create Monitoring Dashboards using Prometheus and Grafana
+		
+	
+		
+Next :::
+
+	Capstone Project Discussion :
+	
+		- Banking 
+		
+		- Retail 
+		
+		- Health Care 			
+			
